@@ -27,9 +27,10 @@ $stmt->execute();
 
 
 
-if  ($stmt->execute()<1) {
+if  ($stmt->rowCount()==0) {
     // Mensagem de erro quando os dados são inválidos e/ou o usuário não foi encontrado
-    echo "Login inválido!"; 
+    echo  "<script>alert('Login Inálido');</script>";
+    echo "<script language='javaScript'>window.location.href='login.html'</script>";
     
 } else {
     

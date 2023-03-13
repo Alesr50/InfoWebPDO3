@@ -51,11 +51,11 @@ if (!isset($_SESSION['usuario'])) {
 
         console.log(data);
 
-        $('#idUsuario').val(data[0]);
-        $('#nomeUsuario').val(data[1]);
-        $('#emailUsuario').val(data[2]);
-        $('#loginUsuario').val(data[3]);
-        $('#senhaUsuario').val(data[4]);
+        $('#idAluno').val(data[0]);
+        $('#nomeAluno').val(data[1]);
+        $('#cpfAluno').val(data[2]);
+        $('#idadeAluno').val(data[3]);
+      
 
 
       });
@@ -65,9 +65,11 @@ if (!isset($_SESSION['usuario'])) {
     function confirmacao(id) {
       var resposta = confirm("Deseja remover esse registro?");
       if (resposta == true) {
-        window.location.href = "deleta.php?idUsuario=" + id;
+        window.location.href = "deletaAluno.php?idAluno=" + id;
       }
     }
+
+
   </script>
 
 
@@ -88,7 +90,7 @@ if (!isset($_SESSION['usuario'])) {
 
         include("./conexao/conexao.php");
         $pdo = conectar();
-        $sql = "SELECT idUsuario, nomeUsuario,loginUsuario, emailUsuario,senhaUsuario FROM tblUsuario where ativo=1";
+        $sql = "SELECT idAluno,nomeAluno, cpfAluno,idadeAluno FROM tblAlunos where ativo=1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
 
@@ -97,9 +99,8 @@ if (!isset($_SESSION['usuario'])) {
     <tr>
         <th >ID</th>
         <th>Nome</th>        
-        <th>Email</th>
-        <th>Usuario</th>
-        <th>Senha</th>
+        <th>CPF</th>
+        <th>Idade</th>       
         <th></th>
         <th></th>
       </tr>        
@@ -107,19 +108,18 @@ if (!isset($_SESSION['usuario'])) {
     <tbody>";
 
           while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $id        = $row["idUsuario"];
-            $nome      = $row["nomeUsuario"];
-            $login      = $row["loginUsuario"];
-            $email = $row["emailUsuario"];
-            $senha = $row["senhaUsuario"];
-            echo "<tr>
-        <td>" . $row["idUsuario"] . "</td>
-        <td>" . $row["nomeUsuario"] . "</td>
-        <td>" . $row["emailUsuario"] . "</td> 
-        <td>" . $row["loginUsuario"] . "</td> 
-        <td id='psw' class='hidetext'>" . $row["senhaUsuario"] . "</td>
+            $id        = $row["idAluno"];
+            $nome        = $row["nomeAluno"];
+            $cpf      = $row["cpfAluno"];
+            $idade      = $row["idadeAluno"];
+                echo "<tr>
+        <td>" . $row["idAluno"] . "</td>
+        <td>" . $row["nomeAluno"] . "</td>
+        <td>" . $row["cpfAluno"] . "</td> 
+        <td>" . $row["idadeAluno"] . "</td> 
+       
         <td><button type='button' class='btn btn-primary editbtn' data-bs-toggle='modal'  data-bs-target='#editModal' >Editar</button></td>     
-        <td><a href='javascript:func()' onclick='confirmacao(" . $row["idUsuario"] . ")' >Excluir</a></td>
+        <td><button type='button' class='btn btn-primary' onclick='confirmacao(" .$row["idAluno"] . ")' >Excluir</a></td>
     </tr>";
           }
           echo "</table>";
@@ -155,27 +155,24 @@ if (!isset($_SESSION['usuario'])) {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="hidden" name="idUsuario" id="idUsuario">
+          <input type="hidden" name="idAluno" id="idAluno">
 
           <div class="form-group">
             <label> Nome de Usuario </label>
-            <input type="text" name="nomeUsuario" id="nomeUsuario" class="form-control" placeholder="Nome do Usuario">
+            <input type="text" name="nomeAluno" id="nomeAluno" class="form-control" placeholder="Nome do Aluno">
           </div>
 
           <div class="form-group">
-            <label> Email </label>
-            <input type="text" name="emailUsuario" id="emailUsuario" class="form-control" placeholder="Email do Usuario">
+            <label> CPF </label>
+            <input type="text" name="cpfAluno" id="cpfAluno" class="form-control" placeholder="CPF do Aluno">
           </div>
 
           <div class="form-group">
-            <label> Usuario </label>
-            <input type="text" name="loginUsuario" id="loginUsuario" class="form-control" placeholder="Digite o Login">
+            <label> Idade</label>
+            <input type="number" name="idadeAluno" id="idadeAluno" class="form-control" placeholder="Idade do Aluno">
           </div>
 
-          <div class="form-group">
-            <label> Senha </label>
-            <input type="password" name="senhaUsuario" id="senhaUsuario" class="form-control" placeholder="Digite a Senha">
-          </div>
+         
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
