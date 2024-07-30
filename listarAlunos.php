@@ -89,7 +89,7 @@ if (!isset($_SESSION['usuario'])) {
         <?php
 
         include("./conexao/conexao.php");
-        $pdo = conectar();
+       
         $sql = "SELECT idAluno,nomeAluno, cpfAluno,idadeAluno FROM tblAlunos where ativo=1";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
