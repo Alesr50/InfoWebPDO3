@@ -1,6 +1,6 @@
 
 <?php
-function conectar(){
+
 
 
  # Informações sobre o banco de dados:
@@ -16,11 +16,12 @@ try{
     $pdo =  new PDO("$db_driver:host=$db_host; dbname=$db_nome", $db_usuario, $db_senha);
 }catch(PDOException $e){
        echo 'Falha ao conectar no banco de dados: '.$e->getMessage();
-    die;}
+    die;
+}
 	
-   return $pdo;
 
-	}
+
+
 	
 
 	
